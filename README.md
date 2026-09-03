@@ -2,34 +2,47 @@
 
 A lightweight, self-hosted internet monitoring solution built with Docker, Prometheus, Blackbox Exporter, and Grafana.
 
+This project is designed to monitor internet connectivity, latency, packet loss, and service availability through a simple web-based dashboard.
+
+---
+
 ## Overview
 
-This project monitors internet connectivity and network performance in real time.
+The Internet Monitoring Stack provides a local monitoring solution without requiring cloud services, VPS infrastructure, or external monitoring platforms.
 
-The dashboard provides:
+The system continuously probes selected network targets and collects monitoring metrics that are visualized through Grafana.
+
+### Main Monitoring Metrics
 
 - Internet availability
-- Network latency
+- ICMP latency
 - Packet loss
-- Historical latency monitoring
-- HTTP and ICMP monitoring
+- HTTP availability
+- Latency history
+- Prometheus target health
+
+---
 
 ## Architecture
 
 ```text
-Internet
-   │
-   ├── Google
-   └── 8.8.8.8
-        │
-        ▼
-Blackbox Exporter
-        │
-        ▼
-Prometheus
-        │
-        ▼
-Grafana
-        │
-        ▼
-Monitoring Dashboard
+                    INTERNET
+                       │
+              ┌────────┴────────┐
+              │                 │
+          Google.com          8.8.8.8
+          HTTP Check          ICMP Check
+              │                 │
+              └────────┬────────┘
+                       │
+                       ▼
+              Blackbox Exporter
+                       │
+                       ▼
+                  Prometheus
+                       │
+                       ▼
+                    Grafana
+                       │
+                       ▼
+             Monitoring Dashboard
